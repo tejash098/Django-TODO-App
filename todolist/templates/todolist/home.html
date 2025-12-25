@@ -1,0 +1,100 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block title %} Dashboard - Todo App {% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'todolist/home_style.css' %}">
+{% endblock %}
+{% block content %}
+
+<nav>
+  <div class="nav-container">
+    <a href="{% url 'todo_list' %}" class="logo">Todo App</a>
+    <div class="user-menu">
+        <div class="profile-img">
+            {{ request.user.username|slice:"1" }}
+        </div>
+      <span>Hello, {{ request.user.username }}</span>
+      <a href="{% url 'logout' %}" class="logout-btn">Log out</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <aside>
+    <div class="card">
+      <h3>Add New Task</h3>
+      <form method="POST" action="{% url 'todo_create' %}">
+        {% csrf_token %}
+
+        <div class="form-group">
+          <label>Task Title</label>
+          <input
+            type="text"
+            name="title"
+            placeholder="Enter Your Task..."
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Due Date</label>
+          <input type="date" name="due_date" required />
+        </div>
+
+        <div class="form-group">
+          <label>Status</label>
+          <select name="status" default="not_started">
+            <option value="not_started">Not Started</option>
+            <option value="pending">Pending</option>
+            <option value="completed">Completed</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn-primary">Create Task</button>
+      </form>
+    </div>
+  </aside>
+
+  <main>
+    <h3>My Tasks</h3>
+
+    {% if todos %}
+    <ul class="task-list">
+      {% for todo in todos %}
+      <li class="task-item">
+        <div class="task-info">
+          <h4>{{ todo.title }}</h4>
+          <div class="task-meta">
+            Due: {{ todo.due_date }} &bull; Created: {{ todo.created_at|date:"M d, Y" }}
+          </div>
+        </div>
+
+        <div class="right-side" style="text-align: right">
+          <span class="status-badge status-{{ todo.Status }}">
+            {{ todo.get_Status_display }}
+          </span>
+
+          <div class="actions" style="margin-top: 10px">
+            <a href="{% url 'todo_update' todo.id %}" class="btn-sm btn-edit"
+              >Edit</a
+            >
+
+            <a
+              href="{% url 'todo_delete' todo.id %}"
+              class="btn-sm btn-delete"
+              onclick="return confirm('Are you sure?')"
+              >Delete</a
+            >
+          </div>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <div style="text-align: center; color: var(--text-light); margin-top: 50px">
+      <p>No tasks found. Create one to get started!</p>
+    </div>
+    {% endif %}
+  </main>
+</div>
+{% endblock %}

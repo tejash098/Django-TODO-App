@@ -1,0 +1,37 @@
+{% extends 'base.html' %} {% load static %}  {% block title %}Login{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'accounts/login_style.css' %}" />
+{% endblock %} {% block content %}
+
+<div class="auth-container">
+  <a href="{% url 'index' %}" class="logo">Todo App</a>
+
+  <div class="auth-card">
+    <h2>Welcome back</h2>
+    <p class="sub-text">Please enter your details to sign in.</p>
+
+    <form method="POST" action="{% url 'login' %}">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="username" name="username" required />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="••••••••" name="password" required />
+        <a href="#" class="forgot-pass">Forgot password?</a>
+      </div>
+      {% if msg %}
+      <div style="color: red; margin: 8px 0">{{ msg }}</div>
+      {% endif %}
+      <button type="submit" class="btn">Sign In</button>
+    </form>
+
+    <p class="footer-text">
+      Don't have an account? <a href="{% url 'register' %}">Sign up</a>
+    </p>
+  </div>
+</div>
+
+{% endblock %}

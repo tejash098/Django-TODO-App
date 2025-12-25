@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Todo List{% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'todolist/index_style.css' %}">
+{% endblock %}
+{% block content %}
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Todo App</div>
+                <div class="nav-links">
+                    <a href="{% url 'login' %}" class="btn" style="padding: 8px 20px; margin-left: 20px; color: var(--white);">Log In</a>
+                    <a href="{% url 'register' %}" class="btn" style="padding: 8px 20px; margin-left: 20px; color: var(--white);">Sign Up</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <section class="hero">
+        <div class="container">
+            <h1>Organize your life,<br>one task at a time.</h1>
+            <p>The distraction-free to-do list that helps you capture ideas, plan your day, and actually get things done.</p>
+            <a href="{% url 'register' %}" class="btn">Get Started</a>
+
+            <div class="app-mockup">
+                <div class="mockup-header">Today's Tasks</div>
+                <div class="mockup-item">
+                    <div class="checkbox checked"></div>
+                    <span style="text-decoration: line-through; color: #999;">Design landing page</span>
+                </div>
+                <div class="mockup-item">
+                    <div class="checkbox"></div>
+                    <span>Email the team updates</span>
+                </div>
+                <div class="mockup-item">
+                    <div class="checkbox"></div>
+                    <span>Buy groceries for dinner</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <h2 style="text-align: center;">Why use Todo App?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>⚡️ Lightning Fast</h3>
+                    <p>Add tasks in milliseconds. Our shortcut-first interface keeps your hands on the keyboard and your mind in flow.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔄 Sync Everywhere</h3>
+                    <p>Start on your phone, finish on your laptop. Your tasks are always backed up and synchronized in real-time.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🎯 Focus Mode</h3>
+                    <p>Overwhelmed? Toggle Focus Mode to hide everything except the one task you need to complete right now.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Todo App Inc. All rights reserved.</p>
+        </div>
+    </footer>
+{% endblock %}
