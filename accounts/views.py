@@ -23,9 +23,7 @@ def login_view(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
-        print(user)
         if user is not None:
-            print("login success")
             login(request, user)
             return redirect('todo_list')
         else:
